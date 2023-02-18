@@ -75,7 +75,7 @@ function nextStep() {
 
 let interval = setInterval(() => {
    nextStep();
-}, 100);
+}, 400);
 
 
 
