@@ -1,0 +1,87 @@
+// создать поле и ячейки
+let field = document.createElement('div');
+document.body.appendChild(field);
+field.classList.add('field');
+
+for (let i = 0; i < 64; i++) {
+   let excel = document.createElement('div');
+   field.appendChild(excel);
+   excel.classList.add('excel');
+}
+
+let excel = document.getElementsByClassName('excel');
+let x = 0, y = 0;
+for (let i = 0; i < excel.length; i++) {
+   if (x > 7) {
+      x = 0;
+      y++;
+   }
+   excel[i].setAttribute('posY', y);
+   excel[i].setAttribute('posX', x);
+   x++;
+   if ((i % 2 == 0 && y % 2 == 0) || (i % 2 != 0 && y % 2 != 0)) {
+      excel[i].style.backgroundColor = "rgb(235,236,208)";
+   }
+   else {
+      excel[i].style.backgroundColor = "rgb(119,149,86)";
+   }
+}
+
+// поставить коня на место
+let a = Math.round(Math.random() * 63);
+console.log(a);
+excel[a].classList.add('current');
+excel[a].classList.add('set');
+
+let map = [
+   [50, 11, 24, 63, 14, 37, 26, 35],
+   [23, 62, 51, 12, 25, 34, 15, 38],
+   [10, 49, 64, 21, 40, 13, 36, 27],
+   [61, 22, 9, 52, 33, 28, 39, 16],
+   [48, 7, 60, 1, 20, 41, 54, 29],
+   [59, 4, 45, 8, 53, 32, 17, 42],
+   [6, 47, 2, 57, 44, 19, 30, 55],
+   [3, 58, 5, 46, 31, 56, 43, 18],
+];
+
+let step = 1;
+excel[a].innerHTML = step;
+step++;
+
+function nextStep() {
+   let currentX = excel[a].getAttribute('posX');
+   let currentY = excel[a].getAttribute('posY');
+   let start = map[currentY][currentX];
+
+   for (let i = 0; i < excel.length; i++) {
+      currentX = excel[i].getAttribute('posX');
+      currentY = excel[i].getAttribute('posY');
+
+      let temp = map[currentY][currentX] - start + 1;
+      if (temp <= 0) {
+         temp = temp + 64;
+      }
+
+      if (temp == step) {
+         document.querySelector('.current').classList.remove('current');
+         excel[i].innerHTML = temp;
+         excel[i].classList.add('current');
+         excel[i].classList.add('set');
+         step++;
+         break;
+      }
+   }
+}
+
+let interval = setInterval(() => {
+   nextStep();
+}, 100);
+
+
+
+
+
+
+
+
+
