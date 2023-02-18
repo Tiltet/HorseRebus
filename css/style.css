@@ -9,7 +9,7 @@ body {
    border-radius: 10px;
    overflow: hidden;
    display: flex;
-   margin: 50px auto;
+   margin: 0 auto;
    width: 640px;
    height: 640px;
    flex-wrap: wrap;
