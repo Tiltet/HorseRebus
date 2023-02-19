@@ -1,124 +1,94 @@
-// создать поле и ячейки
-let field = document.createElement('div');
-document.body.appendChild(field);
-field.classList.add('field');
-
-for (let i = 0; i < 64; i++) {
-   let excel = document.createElement('div');
-   field.appendChild(excel);
-   excel.classList.add('excel');
-}
-
+// ВЫДАЧА АТРИБУТОВ КЛЕТКАМ
 let excel = document.getElementsByClassName('excel');
-let x = 1, y = 8;
-for (let i = 0; i < excel.length; i++) {
-   if (x > 8) {
-      x = 1;
-      y--;
+
+let x = 0, y = 0;
+for (let i = 0; i < 64; i++) {
+   if (x > 7) {
+      y++;
+      x = 0;
    }
+
    excel[i].setAttribute('posX', x);
    excel[i].setAttribute('posY', y);
+   excel[i].setAttribute('number', i);
+
    x++;
-   if ((i % 2 == 0 && y % 2 == 0) || (i % 2 != 0 && y % 2 != 0)) {
+   if ((i % 2 == 1 && y % 2 == 1) || (i % 2 != 1 && y % 2 != 1)) {
       excel[i].style.backgroundColor = "rgb(235,236,208)";
    }
    else {
       excel[i].style.backgroundColor = "rgb(119,149,86)";
    }
 }
+// ВЫДАЧА АТРИБУТОВ КЛЕТКАМ
 
-// поставить коня на место
+// ПОСТАНОВКА КОНЯ В РАНДОМНОЕ МЕСТО
 let a = Math.round(Math.random() * 63);
+console.log(a);
+
 excel[a].classList.add('current');
 excel[a].classList.add('set');
+// ПОСТАНОВКА КОНЯ В РАНДОМНОЕ МЕСТО
+
+let map = [
+   [50, 11, 24, 63, 14, 37, 26, 35],
+   [23, 62, 51, 12, 25, 34, 15, 38],
+   [10, 49, 64, 21, 40, 13, 36, 27],
+   [61, 22, 9, 52, 33, 28, 39, 16],
+   [48, 7, 60, 1, 20, 41, 54, 29],
+   [59, 4, 45, 8, 53, 32, 17, 42],
+   [6, 47, 2, 57, 44, 19, 30, 55],
+   [3, 58, 5, 46, 31, 56, 43, 18],
+];
 
 let step = 1;
 excel[a].innerHTML = step;
-
-let currentX = excel[a].getAttribute('posX');
-let currentY = excel[a].getAttribute('posY');
+step++;
 
 function nextStep() {
-   let vars = [document.querySelector('[posX = "' + (+currentX + 1) + '"][posY = "' + (+currentY + 2) + '"]'),
-   document.querySelector('[posX = "' + (+currentX + 2) + '"][posY = "' + (+currentY + 1) + '"]'),
-   document.querySelector('[posX = "' + (+currentX + 2) + '"][posY = "' + (+currentY - 1) + '"]'),
-   document.querySelector('[posX = "' + (+currentX + 1) + '"][posY = "' + (+currentY - 2) + '"]'),
-   document.querySelector('[posX = "' + (+currentX - 1) + '"][posY = "' + (+currentY - 2) + '"]'),
-   document.querySelector('[posX = "' + (+currentX - 2) + '"][posY = "' + (+currentY - 1) + '"]'),
-   document.querySelector('[posX = "' + (+currentX - 2) + '"][posY = "' + (+currentY + 1) + '"]'),
-   document.querySelector('[posX = "' + (+currentX - 1) + '"][posY = "' + (+currentY + 2) + '"]')];
+   let currentX = excel[a].getAttribute('posX');
+   let currentY = excel[a].getAttribute('posY');
+   let start = map[currentY][currentX];
 
-   for (let i = vars.length; i >= 0; i--) {
-      if (!vars[i] || vars[i].classList.contains('set')) {
-         vars.splice(i, 1);
-      }
-   }
+   for (let i = 0; i < excel.length; i++) {
+      currentX = excel[i].getAttribute('posX');
+      currentY = excel[i].getAttribute('posY');
 
-   if (vars.length > 0) {
-      let nextArr = [];
-      function nextStep() {
-         for (let i = 0; i < vars.length; i++) {
-            let nextX = vars[i].getAttribute('posX');
-            let nextY = vars[i].getAttribute('posY');
-            let nextVars = [document.querySelector('[posX = "' + (+currentX + 1) + '"][posY = "' + (+currentY + 2) + '"]'),
-            document.querySelector('[posX = "' + (+nextX + 2) + '"][posY = "' + (+nextY + 1) + '"]'),
-            document.querySelector('[posX = "' + (+nextX + 2) + '"][posY = "' + (+nextY - 1) + '"]'),
-            document.querySelector('[posX = "' + (+nextX + 1) + '"][posY = "' + (+nextY - 2) + '"]'),
-            document.querySelector('[posX = "' + (+nextX - 1) + '"][posY = "' + (+nextY - 2) + '"]'),
-            document.querySelector('[posX = "' + (+nextX - 2) + '"][posY = "' + (+nextY - 1) + '"]'),
-            document.querySelector('[posX = "' + (+nextX - 2) + '"][posY = "' + (+nextY + 1) + '"]'),
-            document.querySelector('[posX = "' + (+nextX - 1) + '"][posY = "' + (+nextY + 2) + '"]')];
-            for (let i = nextVars.length; i >= 0; i--) {
-               if (!nextVars[i] || nextVars[i].classList.contains('set')) {
-                  nextVars.splice(i, 1);
-               }
-            }
-            nextArr.push(nextVars.length)
-         }
-         return nextArr;
+      let temp = map[currentY][currentX] - start + 1;
+      if (temp <= 0) {
+         temp = temp + 64;
       }
 
-      nextArr = nextStep();
-      let k = nextArr.length;
-      let min = nextArr[0];
-      var index = 0;
-      while (k--) {
-         if (nextArr[k] < min) {
-            min = nextArr[k];
-            index = k;
-         }
+      if (temp == step) {
+         document.querySelector('.current').classList.remove('current');
+         excel[i].innerHTML = temp;
+         excel[i].classList.add('current');
+         excel[i].classList.add('set');
+         step++;
+         break;
       }
-
-      step++;
-      document.querySelector('.current').classList.remove('current');
-      vars[index].classList.add('current');
-      vars[index].classList.add('set');
-      vars[index].innerHTML = step;
-      currentX = vars[index].getAttribute('posX');
-      currentY = vars[index].getAttribute('posY');
-
-      if (step == 64) {
-         clearInterval(interval);
-         setTimeout(() => {
-            console.log(step);
-            // alert("Успех");
-            // document.location.reload(true);
-         })
-      }
-   }
-   else {
-      clearInterval(interval);
-      setTimeout(() => {
-         // alert("Неудача!!!");
-         // document.location.reload(true);
-      })
    }
 }
 
-let interval = setInterval(() => {
-   nextStep();
-}, 300);
+Start.onclick = function () {
+   let speed = 1000;
+   let i = 10;
+   let interval = setInterval(() => {
+      nextStep();
+   }, speed);
+   Stop.onclick = function () {
+      clearInterval(interval);
+      document.getElementById("Stop").disabled = true;
+      document.getElementById("Start").disabled = false;
+   };
+   document.getElementById("Start").disabled = true;
+   document.getElementById("Stop").disabled = false;
+};
 
+Stop.onclick = function () {
+   clearInterval(interval);
+   // document.getElementById("Stop").disabled = true;
+};
 
 
 
