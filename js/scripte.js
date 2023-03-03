@@ -69,26 +69,3 @@ function nextStep() {
       }
    }
 }
-
-Start.onclick = function () {
-   let speed = 1000;
-   let i = 10;
-   let interval = setInterval(() => {
-      nextStep();
-   }, speed);
-   Stop.onclick = function () {
-      clearInterval(interval);
-      document.getElementById("Stop").disabled = true;
-      document.getElementById("Start").disabled = false;
-   };
-   document.getElementById("Start").disabled = true;
-   document.getElementById("Stop").disabled = false;
-};
-
-Stop.onclick = function () {
-   clearInterval(interval);
-   // document.getElementById("Stop").disabled = true;
-};
-
-
-

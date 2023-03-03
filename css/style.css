@@ -18,7 +18,7 @@ body {
 
 /* Шахматное поле */
 .field__container {
-   margin: 0 20px;
+   margin: 0 auto;
 }
 
 .field {
@@ -40,7 +40,17 @@ body {
    align-items: center;
 }
 
-@media (max-width: 760px) {
+.current {
+   color: transparent;
+   background: url("../images/horse5.png") center no-repeat;
+   background-size: cover;
+}
+
+@media (max-width:1070px) {
+   .container {
+      max-width: 970px;
+   }
+
    .field {
       width: 560px;
       height: 560px;
@@ -49,11 +59,15 @@ body {
    .excel {
       width: 70px;
       height: 70px;
-      font-size: 40px;
+      font-size: 30px;
    }
 }
 
-@media (max-width: 600px) {
+@media (max-width:992px) {
+   .container {
+      max-width: 750px;
+   }
+
    .field {
       width: 400px;
       height: 400px;
@@ -66,7 +80,11 @@ body {
    }
 }
 
-@media (max-width: 440px) {
+@media (max-width:782px) {
+   .container {
+      max-width: none;
+   }
+
    .field {
       width: 280px;
       height: 280px;
@@ -75,14 +93,8 @@ body {
    .excel {
       width: 35px;
       height: 35px;
-      font-size: 20px;
+      font-size: 25px;
    }
-}
-
-.current {
-   color: transparent;
-   background: url("../images/horse5.png") center no-repeat;
-   background-size: cover;
 }
 
 /* Шахматное поле */
@@ -90,86 +102,75 @@ body {
 /* Интерфейс */
 
 .interface {
-   display: flex;
-   justify-content: center;
    margin: 0 auto;
 }
 
-.content {
+.interface__content {
    text-align: center;
    color: aliceblue;
    font-size: 30px;
    display: flex;
    flex-direction: column;
+   margin: 0 30px;
 }
 
-.content button {
-   border-radius: 10px;
+.interface__content button {
+   border: 2px solid rgb(117, 150, 86);
+   border-radius: 30px;
    overflow: hidden;
-   font-size: 24px;
+   font-size: 30px;
+   letter-spacing: 10px;
    width: 300px;
-   height: 50px;
+   height: 60px;
+   margin: 0 0 30px 0;
+}
+
+.active{
+   transition-duration: 0.5s;
+   box-shadow: inset 300px 0 0 0 rgb(117, 150, 86);
+}
+
+.interface__counter-title {
+   margin: 0 0 10px 0;
+   font-size: 30px;
+   color: white;
+}
+
+.interface__counter {
+   text-align: center;
+}
+
+.counter__minus, .counter__plus {
    background-color: rgb(117, 150, 86);
+   height: 30px;
+   width: 30px;
+   font-size: 24px;
 }
 
-.stop {
-   margin: 30px 0 0 0;
+.counter__count {
+   margin: 0 10px;
+   font-size: 24px;
+   color: white;
 }
 
-@media (max-width: 1000px) {
-   .container__flex {
-      display: block;
-      margin: 20px 0 0 0;
-   }
-
-   .content {
-      display: block;
-      margin: 0 30px;
-   }
-
-   .start {
-      margin: 30px 0 0 0;
-   }
-
-   .stop {
-      margin: 30px 0 30px 0;
-   }
+.interface__counter {
+   margin: 0 0 20px 0;
 }
 
-@media (max-width: 600px) {
-   .content button {
-      border-radius: 10px;
-      overflow: hidden;
-      font-size: 24px;
-      width: 200px;
+@media (max-width:1070px) {}
+
+@media (max-width:992px) {
+   .interface__content button {
+      width: 250px;
       height: 50px;
-      background-color: rgb(117, 150, 86);
+      font-size: 24px;
    }
 }
-
-@media (max-width: 440px) {
-   .container__flex {
-      margin: 0;
-   }
-
-   .field {
-      width: 280px;
-      height: 280px;
-   }
-
-   .content button {
-      border-radius: 10px;
-      overflow: hidden;
-      font-size: 24px;
-      width: 100px;
+@media (max-width:782px) {
+   .interface__content button {
+      width: 260px;
       height: 50px;
-      background-color: rgb(117, 150, 86);
-   }
-
-   .excel {
-      width: 35px;
-      height: 35px;
-      font-size: 20px;
+      font-size: 26px;
    }
 }
 
