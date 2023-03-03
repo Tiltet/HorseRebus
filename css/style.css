@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+/*Запрет масштабирования*/
+body {
+    -webkit-text-size-adjust: none;
+}
+
 @media screen and (pointer:coarse) {
    /* Запрещаем масштабирование при касании на мобильных устройствах Apple */
    body{
