@@ -1,5 +1,6 @@
 // ВЫДАЧА АТРИБУТОВ КЛЕТКАМ
 let excel = document.getElementsByClassName('excel');
+let check = 0, a = -1;
 
 let x = 0, y = 0;
 for (let i = 0; i < 64; i++) {
@@ -12,6 +13,16 @@ for (let i = 0; i < 64; i++) {
    excel[i].setAttribute('posY', y);
    excel[i].setAttribute('number', i);
 
+
+   excel[i].addEventListener('click', () => {
+      if (check == 0) {
+         excel[i].classList.add('current');
+         excel[i].classList.add('set');
+         check = 1;
+         a = i;
+      }
+   });
+
    x++;
    if ((i % 2 == 1 && y % 2 == 1) || (i % 2 != 1 && y % 2 != 1)) {
       excel[i].style.backgroundColor = "rgb(235,236,208)";
@@ -21,14 +32,6 @@ for (let i = 0; i < 64; i++) {
    }
 }
 // ВЫДАЧА АТРИБУТОВ КЛЕТКАМ
-
-// ПОСТАНОВКА КОНЯ В РАНДОМНОЕ МЕСТО
-let a = Math.round(Math.random() * 63);
-console.log(a);
-
-excel[a].classList.add('current');
-excel[a].classList.add('set');
-// ПОСТАНОВКА КОНЯ В РАНДОМНОЕ МЕСТО
 
 let map = [
    [50, 11, 24, 63, 14, 37, 26, 35],

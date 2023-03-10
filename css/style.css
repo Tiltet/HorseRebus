@@ -6,10 +6,11 @@ body {
 }
 
 @media screen and (pointer:coarse) {
+
    /* Запрещаем масштабирование при касании на мобильных устройствах Apple */
-   body{
+   body {
       touch-action: manipulation;
-    }
+   }
 }
 
 body {
@@ -109,6 +110,12 @@ body {
    }
 }
 
+.horse {
+   color: transparent;
+   background: url("../images/horse5.png") center no-repeat;
+   background-size: cover;
+}
+
 /* Шахматное поле */
 
 /* Интерфейс */
@@ -131,13 +138,13 @@ body {
    border-radius: 30px;
    overflow: hidden;
    font-size: 30px;
-   letter-spacing: 10px;
+   letter-spacing: 7px;
    width: 300px;
    height: 60px;
    margin: 0 0 30px 0;
 }
 
-.active{
+.active {
    transition-duration: 0.5s;
    box-shadow: inset 300px 0 0 0 rgb(117, 150, 86);
 }
@@ -152,7 +159,8 @@ body {
    text-align: center;
 }
 
-.counter__minus, .counter__plus {
+.counter__minus,
+.counter__plus {
    background-color: rgb(117, 150, 86);
    height: 30px;
    width: 30px;
@@ -178,6 +186,7 @@ body {
       font-size: 24px;
    }
 }
+
 @media (max-width:782px) {
    .interface__content button {
       width: 260px;
